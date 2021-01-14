@@ -1,6 +1,9 @@
 <?php
 
-class Enregistrer {
+namespace Models;
+use PDO;
+
+class Enregistrer extends DbConnect {
 
     /**
      * Primary key

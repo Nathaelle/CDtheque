@@ -1,6 +1,9 @@
 <?php
 
-class Artiste {
+namespace Models;
+use PDO;
+
+class Artiste extends DbConnect {
 
     /**
      * Primary key - auto_increment

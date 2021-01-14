@@ -1,6 +1,9 @@
 <?php
 
-class Disque {
+namespace Models;
+use PDO;
+
+class Disque extends DbConnect {
 
     /**
      * Primary key

@@ -25,18 +25,12 @@ spl_autoload_register(function (string $class) {
 try {
     $label1 = new Models\Label();
 
+    // Données récupérées via ma méthode selectAll() dans ma table `labels`
+    $donnees = $label1->selectAll();
+
+    var_dump($donnees);
+
 } catch(Exception $e) {
     echo "Une exception est survenue, je peux faire quelque chose dans ce cas là...";
 }
 
-
-
-
-
-var_dump($label1);
-echo "Le nom du label est :" . $label1->getNom();
-
-$label1->setNom("Universal");
-
-var_dump($label1);
-echo "Le nom du label est :" . $label1->getNom();
