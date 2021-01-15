@@ -61,4 +61,34 @@ class Disque extends DbConnect {
         $this->nom = $nom;
     }
 
+    public function selectAll() {
+
+        $query = "SELECT reference, titre, annee, nom FROM disques;";
+        $result = $this->pdo->prepare($query);
+        $result->execute();
+
+        $datas = $result->fetchAll();
+        return $datas;
+    }
+
+    public function select() {
+
+        // POUR L'EXEMPLE !! NON SECURISE !!!
+        $query = "SELECT reference, titre, annee, nom FROM disques WHERE reference = '$this->reference';";
+        
+        $result = $this->pdo->prepare($query);
+        $result->execute();
+        $datas = $result->fetch();
+        return $datas;
+    }
+
+    public function insert() {
+
+        // POUR L'EXEMPLE !! NON SECURISE !!!
+        $query = "INSERT INTO disques (reference, titre, annee, nom) VALUES('$this->reference', '$this->titre', '$this->annee', '$this->nom');";
+        $result = $this->pdo->prepare($query);
+        $result->execute();
+
+    }
+
 }

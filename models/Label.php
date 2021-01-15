@@ -36,6 +36,27 @@ class Label extends DbConnect {
 
     }
 
+    public function select() {
+
+        // POUR L'EXEMPLE !! NON SECURISE !!!
+        $query = "SELECT nom FROM labels WHERE nom = '$this->nom';";
+
+        $result = $this->pdo->prepare($query);
+        $result->execute();
+        $datas = $result->fetch();
+        return $datas;
+    }
+
+    public function insert() {
+
+        // POUR L'EXEMPLE !! NON SECURISE !!!
+        $query = "INSERT INTO labels (nom) VALUES('$this->nom');";
+        $result = $this->pdo->prepare($query);
+        if(!$result->execute())
+            var_dump($result->errorInfo());
+        
+
+    }
 
 
 
