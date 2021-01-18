@@ -73,10 +73,11 @@ class Disque extends DbConnect {
 
     public function select() {
 
-        // POUR L'EXEMPLE !! NON SECURISE !!!
-        $query = "SELECT reference, titre, annee, nom FROM disques WHERE reference = '$this->reference';";
-        
+        $query = "SELECT reference, titre, annee, nom FROM disques WHERE reference = :ref;"; 
         $result = $this->pdo->prepare($query);
+
+        $result->bindValue("ref", $this->reference, PDO::PARAM_STR);
+
         $result->execute();
         $datas = $result->fetch();
         return $datas;
@@ -84,11 +85,40 @@ class Disque extends DbConnect {
 
     public function insert() {
 
-        // POUR L'EXEMPLE !! NON SECURISE !!!
-        $query = "INSERT INTO disques (reference, titre, annee, nom) VALUES('$this->reference', '$this->titre', '$this->annee', '$this->nom');";
+        $query = "INSERT INTO disques (reference, titre, annee, nom) VALUES(:ref, :titre, :annee, :nom);";
         $result = $this->pdo->prepare($query);
+
+        $result->bindValue("ref", $this->reference, PDO::PARAM_STR);
+        $result->bindValue("titre", $this->titre, PDO::PARAM_STR);
+        $result->bindValue("annee", $this->annee, PDO::PARAM_STR);
+        $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
+
         $result->execute();
 
+    }
+
+    public function update() {
+
+        $query = "UPDATE disques SET titre = :titre, annee = :annee, nom = :nom WHERE reference = :ref;";
+        $result = $this->pdo->prepare($query);
+
+        $result->bindValue("ref", $this->reference, PDO::PARAM_STR);
+        $result->bindValue("titre", $this->titre, PDO::PARAM_STR);
+        $result->bindValue("annee", $this->annee, PDO::PARAM_STR);
+        $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
+
+        $result->execute();
+
+    }
+
+    public function delete() {
+        
+        $query = "DELETE FROM disques WHERE reference = :ref;";
+        $result = $this->pdo->prepare($query);
+
+        $result->bindValue("ref", $this->reference, PDO::PARAM_STR);
+
+        $result->execute();
     }
 
 }

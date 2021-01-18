@@ -3,7 +3,7 @@
 namespace Models;
 use PDO;
 
-class DbConnect {
+abstract class DbConnect implements Crud {
 
     protected $pdo;
 

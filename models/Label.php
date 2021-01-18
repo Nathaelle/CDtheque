@@ -38,29 +38,47 @@ class Label extends DbConnect {
 
     public function select() {
 
-        // POUR L'EXEMPLE !! NON SECURISE !!!
-        $query = "SELECT nom FROM labels WHERE nom = '$this->nom';";
-
+        $query = "SELECT nom FROM labels WHERE nom = :nom;";
         $result = $this->pdo->prepare($query);
+        
+        $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
+
         $result->execute();
+        
         $datas = $result->fetch();
+
+        if($datas) {
+            $this->nom = $datas['nom'];
+        }
+
         return $datas;
     }
 
     public function insert() {
 
-        // POUR L'EXEMPLE !! NON SECURISE !!!
-        $query = "INSERT INTO labels (nom) VALUES('$this->nom');";
+        $query = "INSERT INTO labels (nom) VALUES(:nom);";
         $result = $this->pdo->prepare($query);
+
+        $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
+
         if(!$result->execute())
             var_dump($result->errorInfo());
-        
 
     }
 
+    public function update() {
 
+    }
 
+    public function delete() {
+        
+        $query = "DELETE FROM labels WHERE nom = :nom;";
+        $result = $this->pdo->prepare($query);
 
+        $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
+        
+        $result->execute();
+    }
 
 
 

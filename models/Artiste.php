@@ -44,23 +44,69 @@ class Artiste extends DbConnect {
 
     public function select() {
 
-        // POUR L'EXEMPLE !! NON SECURISE !!!
-        $query = "SELECT id_artiste, nom FROM artistes WHERE id_artiste = $this->idArtiste;";
-        
+        $query = "SELECT id_artiste, nom FROM artistes WHERE id_artiste = :id;";
         $result = $this->pdo->prepare($query);
+
+        $result->bindValue("id", $this->idArtiste, PDO::PARAM_INT);
+
         $result->execute();
         $datas = $result->fetch();
         return $datas;
     }
 
+    public function selectByNom() {
+
+        $query = "SELECT id_artiste, nom FROM artistes WHERE nom = :nom;";
+        $result = $this->pdo->prepare($query);
+        
+        $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
+
+        $result->execute();
+        $datas = $result->fetch();
+
+        // Si $datas ne vaut pas FALSE (= aucune ligne correspondante)
+        if($datas) {
+            $this->idArtiste = $datas['id_artiste'];
+            $this->nom = $datas['nom'];
+        }
+
+        return $datas;
+    }
+
     public function insert() {
 
-        // POUR L'EXEMPLE !! NON SECURISE !!!
-        $query = "INSERT INTO artistes (nom) VALUES('$this->nom');";
+        $query = "INSERT INTO artistes (nom) VALUES(:nom);";
         $result = $this->pdo->prepare($query);
+        
+        $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
+
         $result->execute();
 
         $this->idArtiste = $this->pdo->lastInsertId();
         return $this;
+    }
+
+    public function update() {
+
+        $query = "UPDATE artistes SET nom = :nom WHERE id_artiste = :id;";
+        $result = $this->pdo->prepare($query);
+
+        $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
+        $result->bindValue("id", $this->idArtiste, PDO::PARAM_INT);
+
+        $result->execute();
+
+    }
+
+    public function delete() {
+        
+        $query = "DELETE FROM artistes WHERE id_artiste = :id;";
+        $result = $this->pdo->prepare($query);
+        
+        $result->bindValue("id", $this->idArtiste, PDO::PARAM_INT);
+
+        if(!$result->execute())
+            var_dump($result->errorInfo());
+
     }
 }
