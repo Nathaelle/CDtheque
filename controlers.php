@@ -32,14 +32,23 @@ function ajoutDisque() {
     //a. Instanciation d'un objet Label (pour pouvoir utiliser ses fonctionnalités)
     //b. Appels aux setters pour renseigner les propriétés de notre modèle
     //c. Appel de la méthode insert() de l'objet pour déclencher l'insertion des données (propriétés) du modèle
+    var_dump($_POST);
     $label = new Models\Label();
     $label->setNom($_POST["label"]);
-    $label->insert();
+    if(!$label->select()) {
+        $label->insert();
+    }
+
+    var_dump($label);
 
     // 2. J'insère mon artiste
     $artiste = new Models\Artiste();
     $artiste->setNom($_POST["artiste"]);
-    $artiste->insert();
+    if(!$artiste->selectByNom()) {
+        $artiste->insert();
+    }
+
+    var_dump($artiste);
 
     // 3. J'insère mon disque
     $disque = new Models\Disque();
@@ -48,6 +57,8 @@ function ajoutDisque() {
     $disque->setAnnee($_POST["annee"]);
     $disque->setNom($label->getNom());
     $disque->insert();
+
+    var_dump($disque);
 
     // 4. J'insère la relation disque-artiste
     $enr = new Models\Enregistrer();
