@@ -1,4 +1,12 @@
 <?php
+// Point d'entrée des données UTILISATEUR (GET, POST, COOKIES...)
+// Ces données sont reçues AUTOMATIQUEMENT par PHP dans les structures $_GET, $_POST, $_COOKIE...
+
+// On utilise pour différencier les traitements à effectuer un paramètre : le paramètre de routage
+//var_dump($_GET);
+//var_dump($_POST);
+
+
 
 // Chargement automatique des classes :
 spl_autoload_register(function (string $class) {
@@ -36,29 +44,29 @@ spl_autoload_register(function (string $class) {
 
 $label = new Models\Label();
 //var_dump($label->selectAll());
-$label->setNom('ABCD');
+$label->setNom('Virgin');
 //var_dump($label);
 //var_dump($label->select());
-$label->insert();
+$label->delete();
 
 $artiste = new Models\Artiste();
 //var_dump($artiste->selectAll());
 //$artiste->setIdArtiste(4);
 //$artiste->setNom("Bernard Minet");
-// var_dump($artiste);
-// var_dump($artiste->select());
-//$artiste->insert();
+//var_dump($artiste);
+//var_dump($artiste->select());
+//$artiste->delete();
 //var_dump($artiste);
 
 $disque = new Models\Disque();
 //var_dump($disque->selectAll());
 //$disque->setReference("D00011");
-//$disque->setTitre("czcguiczc");
-//$disque->setAnnee("2020");
+//$disque->setTitre("Symphonie");
+//$disque->setAnnee("1901");
 //$disque->setNom("Universal");
 //var_dump($disque);
 // var_dump($disque->select());
-//$disque->insert();
+$disque->delete();
 
 $enregistrement = new Models\Enregistrer();
 //var_dump($enregistrement->selectAll());
