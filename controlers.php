@@ -77,11 +77,15 @@ function ajoutDisque() {
 function showFormDisque() {
 
     $label = new Models\Label();
-    $datas = $label->selectAll();
+    $labels = $label->selectAll();
+
+    $disque = new Models\Disque();
+    $disques = $disque->selectAll();
     
     return [
         "template" => "formulaire.php",
-        "datas" => $datas
+        "labels" => $labels,
+        "disques" => $disques
 ];
 
 }

@@ -1,14 +1,17 @@
 <?php
 var_dump($toTemplate);
-// $toTemplate["datas"] contient les données récupérées dans la BDD
+// $toTemplate["labels"] contient les données récupérées dans la BDD
+// $toTemplate["disques"] contient les données récupérées dans la BDD
+$datas = $toTemplate["labels"];
+$disques = $toTemplate["disques"];
 
 ?>
 
 <form action="index.php?route=ajoutdisque" method="POST">
     <select name="label">
-        <option>Universal</option>
-        <option>Virgin</option>
-        <option>Sony</option>
+        <?php foreach($datas as $data): ?>
+            <option><?= $data['nom'] ?></option>
+        <?php endforeach ?>
     </select>
     <div>
         <input type="text" placeholder="Label du disque" name="label">
@@ -29,3 +32,10 @@ var_dump($toTemplate);
         <input type="submit" value="Ajouter un disque">
     </div>
 </form>
+
+<ul>
+    <?php foreach($disques as $disk): ?>
+        <li><?= $disk['titre'] ?> (Label : <?= $disk['nom'] ?>) [<?= $disk['annee'] ?>]</li>
+
+    <?php endforeach ?>
+</ul>
