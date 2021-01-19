@@ -7,6 +7,7 @@
 //var_dump($_POST);
 
 require_once "controlers.php";
+require_once "conf/global.php";
 
 // ROUTER 
 $routeok = (isset($_GET["route"]))? $_GET["route"] : "default";
