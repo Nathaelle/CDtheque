@@ -17,10 +17,15 @@ function ajoutDisque() {
     //c. Appel de la méthode insert() de l'objet pour déclencher l'insertion des données (propriétés) du modèle
     //var_dump($_POST);
     $label = new Models\Label();
-    $label->setNom($_POST["label"]);
-    if(!$label->select()) {
-        $label->insert();
+    if(preg_match("#^.{1,50}$#", trim($_POST["label"]))) {
+        $label->setNom($_POST["label"]);
+        if(!$label->select()) {
+            $label->insert();
+        }
+    } else {
+        echo "Format label incorrect";
     }
+    
 
     //var_dump($label);
 
@@ -33,6 +38,8 @@ function ajoutDisque() {
 
     //var_dump($artiste);
 
+    // Format pour la référence : 
+    // 2 lettres majuscules, suivie de 2 chiffres, suivi de deux chiffres ou lettres minuscules
     // 3. J'insère mon disque
     $disque = new Models\Disque();
     $disque->setReference($_POST["reference"]);
