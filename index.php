@@ -10,7 +10,7 @@ require_once "controlers.php";
 require_once "conf/global.php";
 
 // ROUTER 
-$routeok = (isset($_GET["route"]))? $_GET["route"] : "default";
+$routeok = (isset($_GET["route"]))? $_GET["route"] : "showformdisk";
 // Traduction avec if :
 // if(isset($_GET["route"])) {
 //     $routeok = $_GET["route"];
@@ -21,12 +21,15 @@ $routeok = (isset($_GET["route"]))? $_GET["route"] : "default";
 // Regarder la route transmise via GET, et appeler les traitements correspondants (fonction "controler")
 // SI route=ajoutdisque on appelle les traitements pour ajouter un disque
 switch($routeok) {
+    case "showformdisk" : $toTemplate = showFormDisque();
+    break;
     case "ajoutdisque" : ajoutDisque();
     break;
     default : // fonction par défaut...
 }
 
 // AFFICHAGE (réponse HTTP)
+//var_dump($toTemplate);
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +43,7 @@ switch($routeok) {
     
 
     <!-- Contenu spécifique de chacune des pages -->
-    <?php require "formulaire.html" ?>
+    <?php require $toTemplate["template"] ?>
 
 </body>
 </html>

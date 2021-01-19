@@ -94,7 +94,7 @@ class Disque extends DbConnect {
         $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
 
         if(!$result->execute())
-            echo $result->errorInfo();
+            var_dump($result->errorInfo());
 
     }
 

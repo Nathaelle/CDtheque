@@ -20,6 +20,10 @@ spl_autoload_register(function (string $class) {
 
 });
 
+// Pour rappel : deux types de controllers (fonctionalités) : 
+// - Ceux qui font appel à un template (affichage - HTML)
+// - Ceux qui redirigent vers un affichage
+
 // FONCTIONS "CONTROLERS" = traitements appellés
 
 function ajoutDisque() {
@@ -32,14 +36,14 @@ function ajoutDisque() {
     //a. Instanciation d'un objet Label (pour pouvoir utiliser ses fonctionnalités)
     //b. Appels aux setters pour renseigner les propriétés de notre modèle
     //c. Appel de la méthode insert() de l'objet pour déclencher l'insertion des données (propriétés) du modèle
-    var_dump($_POST);
+    //var_dump($_POST);
     $label = new Models\Label();
     $label->setNom($_POST["label"]);
     if(!$label->select()) {
         $label->insert();
     }
 
-    var_dump($label);
+    //var_dump($label);
 
     // 2. J'insère mon artiste
     $artiste = new Models\Artiste();
@@ -48,7 +52,7 @@ function ajoutDisque() {
         $artiste->insert();
     }
 
-    var_dump($artiste);
+    //var_dump($artiste);
 
     // 3. J'insère mon disque
     $disque = new Models\Disque();
@@ -58,7 +62,7 @@ function ajoutDisque() {
     $disque->setNom($label->getNom());
     $disque->insert();
 
-    var_dump($disque);
+    //var_dump($disque);
 
     // 4. J'insère la relation disque-artiste
     $enr = new Models\Enregistrer();
@@ -67,5 +71,17 @@ function ajoutDisque() {
     $enr->insert();
 
     // Résultat souhaité : l'enregistrement des données dans la base de données OK
+
+}
+
+function showFormDisque() {
+
+    $label = new Models\Label();
+    $datas = $label->selectAll();
+    
+    return [
+        "template" => "formulaire.php",
+        "datas" => $datas
+];
 
 }
