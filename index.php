@@ -6,6 +6,7 @@
 //var_dump($_GET);
 //var_dump($_POST);
 
+require_once "conf/fonctions.php";
 require_once "controlers.php";
 require_once "conf/global.php";
 

@@ -5,6 +5,9 @@ var_dump($toTemplate);
 $datas = $toTemplate["labels"];
 $disques = $toTemplate["disques"];
 
+ch_entities($disques);
+ch_entities($labels);
+
 ?>
 
 <form action="index.php?route=ajoutdisque" method="POST">

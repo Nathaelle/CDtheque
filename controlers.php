@@ -1,25 +1,4 @@
 <?php
-// Chargement automatique des classes :
-spl_autoload_register(function (string $class) {
-
-    // echo $class; // ex : "Models\Label"
-
-    $class = str_replace("\\", "/", $class);
-    // echo $class; // ex : "Models/Label"
-
-    $class = lcfirst($class);
-    // echo $class; // ex : "models/Label"
-
-    if(file_exists("$class.php")) {
-        require_once "$class.php";
-        // ex : models/Label.php
-        return true;
-    }
-
-    throw new Exception("Une erreur est survenue lors du chargement !!!!!!!!!!!!!");
-
-});
-
 // Pour rappel : deux types de controllers (fonctionalités) : 
 // - Ceux qui font appel à un template (affichage - HTML)
 // - Ceux qui redirigent vers un affichage
@@ -71,7 +50,7 @@ function ajoutDisque() {
     $enr->insert();
 
     // Résultat souhaité : l'enregistrement des données dans la base de données OK
-
+    header("Location:index.php?route=showformdisk");
 }
 
 function showFormDisque() {
