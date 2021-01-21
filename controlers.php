@@ -31,9 +31,13 @@ function ajoutDisque() {
 
     // 2. J'insère mon artiste
     $artiste = new Models\Artiste();
-    $artiste->setNom($_POST["artiste"]);
-    if(!$artiste->selectByNom()) {
-        $artiste->insert();
+    if(preg_match("#^[\w-àâäéèêëïîôöùûüçñÀÂÄÉÈËÏÔÖÙÛÜŸÇÑæœÆŒ'( )]{1,50}$#", trim($_POST["artiste"]))) {
+        $artiste->setNom($_POST["artiste"]);
+        if(!$artiste->selectByNom()) {
+            $artiste->insert();
+        }
+    } else {
+        echo "Format artiste incorrect";
     }
 
     //var_dump($artiste);
@@ -42,11 +46,15 @@ function ajoutDisque() {
     // 2 lettres majuscules, suivie de 2 chiffres, suivi de deux chiffres ou lettres minuscules
     // 3. J'insère mon disque
     $disque = new Models\Disque();
-    $disque->setReference($_POST["reference"]);
-    $disque->setTitre($_POST["titre"]);
-    $disque->setAnnee($_POST["annee"]);
-    $disque->setNom($label->getNom());
-    $disque->insert();
+    if(preg_match("#^[A-Z]{2}[0-9]{2}[a-z0-9]{2}$#", trim($_POST["reference"])) && preg_match("#^.{1,50}$#", trim($_POST["titre"])) && preg_match("#^[1-2]{1}[0-9]{3}$#", trim($_POST["annee"]))) {
+        $disque->setReference($_POST["reference"]);
+        $disque->setTitre($_POST["titre"]);
+        $disque->setAnnee($_POST["annee"]);
+        $disque->setNom($label->getNom());
+        $disque->insert();
+    } else {
+        echo "Format disque incorrect";
+    }
 
     //var_dump($disque);
 
