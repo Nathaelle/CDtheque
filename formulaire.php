@@ -32,6 +32,9 @@ ch_entities($labels);
         <input type="text" placeholder="Artiste" name="artiste">
     </div>
     <div>
+        <input type="hidden" value="<?= sha1(SALT) ?>" name="token">
+    </div>
+    <div>
         <input type="submit" value="Ajouter un disque">
     </div>
 </form>

@@ -80,7 +80,10 @@ class Artiste extends DbConnect {
         
         $result->bindValue("nom", $this->nom, PDO::PARAM_STR);
 
-        $result->execute();
+        if(!$result->execute()) {
+            var_dump($result->errorInfo());
+            return false;
+        }
 
         $this->idArtiste = $this->pdo->lastInsertId();
         return $this;
