@@ -129,12 +129,49 @@ function showModDisque() {
 
 function modDisque() {
 
+    $label = new Models\Label();
+    if(preg_match("#^.{1,50}$#", trim($_POST["label"]))) {
+        $label->setNom($_POST["label"]);
+        if(!$label->select()) {
+            $label = $label->insert();
+        }
+    } else {
+        echo "Format label incorrect";
+    }
 
-    // redirection
+    $artiste = new Models\Artiste();
+    if(preg_match("#^[\w\àâäéèêëïîôöùûüçñÀÂÄÉÈËÏÔÖÙÛÜŸÇÑæœÆŒ'( )]{1,50}$#", trim($_POST["artiste"]))) {
+        $artiste->setNom($_POST["artiste"]);
+        if(!$artiste->selectByNom()) {
+            $artiste = $artiste->insert();
+        }
+    } else {
+        echo "Format artiste incorrect";
+    }
+
+    if($label && $artiste) {
+        $disque = new Models\Disque();
+        $disque->setReference($_POST["reference"]);
+        $disque->setTitre($_POST["titre"]);
+        $disque->setAnnee($_POST["annee"]);
+        $disque->setNom($label->getNom());
+        $disque = $disque->update();
+    }
+
+    if($disque && $artiste) {
+        $enr = new Models\Enregistrer();
+        $enr->setIdArtiste($artiste->getIdArtiste());
+        $enr->setReference($disque->getReference());
+        $enr->insert();
+    }
+    
+    header("Location:index.php?route=showformdisk");
 }
 
 function suppDisque() {
 
+    //var_dump($_GET);
 
+    
     // Redirection
 }

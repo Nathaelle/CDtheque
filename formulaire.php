@@ -22,7 +22,8 @@ if(isset($toTemplate["disque"])) {
     $titre = $disque["titre"];
     $reference = $disque["reference"];
     $annee = $disque["annee"];
-    $artiste = ch_entities($toTemplate["artistes"][0]["nom"]);
+    ch_entities($toTemplate["artistes"]);
+    $artiste = $toTemplate["artistes"][0]["nom"];
 }
 
 ?>
@@ -46,6 +47,7 @@ if(isset($toTemplate["disque"])) {
     <div>
         <?php if($toTemplate["action"] == "mod"): ?>
         (Référence disque : <?= $reference ?>)
+        <input type="hidden" name="reference" value="<?= $reference ?>">
         <?php else: ?>
         <input type="text" placeholder="Référence du disque" name="reference" value="">
         <?php endif ?>

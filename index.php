@@ -28,6 +28,8 @@ switch($routeok) {
     break;
     case "showmoddisque" : $toTemplate = showModDisque();
     break;
+    case "moddisque" : modDisque();
+    break;
     case "suppdisque" : suppDisque();
     break;
     default : // fonction par défaut...
