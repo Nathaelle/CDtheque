@@ -160,8 +160,15 @@ function modDisque() {
 
     if($disque && $artiste) {
         $enr = new Models\Enregistrer();
-        $enr->setIdArtiste($artiste->getIdArtiste());
         $enr->setReference($disque->getReference());
+
+        $lignes = $enr->selectByRefDisque();
+        foreach($lignes as $ligne) {
+            $enr->setIdArtiste($ligne['id_artiste']);
+            $enr->delete();
+        }
+
+        $enr->setIdArtiste($artiste->getIdArtiste());
         $enr->insert();
     }
     
@@ -171,7 +178,26 @@ function modDisque() {
 function suppDisque() {
 
     //var_dump($_GET);
+    $enr = new Models\Enregistrer();
+    $enr->setReference($_GET["disk"]);
+    $lignes = $enr->selectByRefDisque();
 
-    
-    // Redirection
+    foreach($lignes as $ligne) {
+        $enr->setReference($_GET["disk"]);
+        $enr->delete();
+    }
+
+    $disque = new Models\Disque();
+    $disque->setReference($_GET["disk"]);
+    $verif = $disque->delete();
+
+    if(!$verif) {
+        foreach($lignes as $ligne) {
+            $enr->setReference($ligne["reference"]);
+            $enr->setReference($ligne["id_artiste"]);
+            $enr->insert();
+        }
+    }
+
+    header("Location:index.php?route=showformdisk");
 }

@@ -127,7 +127,7 @@ class Disque extends DbConnect {
 
         $result->bindValue("ref", $this->reference, PDO::PARAM_STR);
 
-        $result->execute();
+        return $result->execute();
     }
 
 }
