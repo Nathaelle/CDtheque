@@ -28,6 +28,8 @@ switch($routeok) {
     break;
     case "showmoddisque" : $toTemplate = showModDisque();
     break;
+    case "ajax" : sendViaAjax();
+    break;
     case "moddisque" : modDisque();
     break;
     case "suppdisque" : suppDisque();
@@ -52,6 +54,10 @@ switch($routeok) {
     <!-- Contenu spécifique de chacune des pages -->
     <?php require $toTemplate["template"] ?>
 
+
+    <div id="modContent"></div>
+    
+    <script src="js/ajax.js"></script>
 </body>
 </html>
     

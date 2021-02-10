@@ -201,3 +201,14 @@ function suppDisque() {
 
     header("Location:index.php?route=showformdisk");
 }
+
+function sendViaAjax() {
+
+    //sleep(5);
+
+    $label = new Models\Label();
+    $labels = $label->selectAll();
+
+    echo json_encode($labels);
+    exit;
+}
