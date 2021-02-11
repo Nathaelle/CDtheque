@@ -212,3 +212,17 @@ function sendViaAjax() {
     echo json_encode($labels);
     exit;
 }
+
+function showFormUser() {
+
+    return [
+        "template" => "insertuser.php"
+    ];
+}
+
+function xhrInsertUser() {
+
+    // Enregistrement d'un utilisateur et contrôles divers
+    echo "Enregistrement ok";
+    exit;
+}

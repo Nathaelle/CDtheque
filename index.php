@@ -11,7 +11,7 @@ require_once "controlers.php";
 require_once "conf/global.php";
 
 // ROUTER 
-$routeok = (isset($_GET["route"]))? $_GET["route"] : "showformdisk";
+$routeok = (isset($_GET["route"]))? $_GET["route"] : "showformuser";
 // Traduction avec if :
 // if(isset($_GET["route"])) {
 //     $routeok = $_GET["route"];
@@ -24,7 +24,11 @@ $routeok = (isset($_GET["route"]))? $_GET["route"] : "showformdisk";
 switch($routeok) {
     case "showformdisk" : $toTemplate = showFormDisque();
     break;
+    case "showformuser" : $toTemplate = showFormUser();
+    break;
     case "ajoutdisque" : ajoutDisque();
+    break;
+    case "xhrinsertuser" : xhrInsertUser();
     break;
     case "showmoddisque" : $toTemplate = showModDisque();
     break;

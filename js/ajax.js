@@ -23,7 +23,76 @@ function getRequest() {
     return request;
 
 }
+// -----------------------------------------------------------------------
+var formulaire = document.getElementById("formuser");
+formulaire.addEventListener("submit", function (event) {
+    event.preventDefault();
 
+    console.log("Le formulaire a été soumi");
+    
+    let pseudo = document.getElementById("pseudo").value;
+    let email = document.getElementById("email").value;
+    let nom = document.getElementById("nom").value;
+    let prenom = document.getElementById("prenom").value;
+    let adresse = document.getElementById("adresse").value;
+    let cp = document.getElementById("cp").value;
+    let ville = document.getElementById("ville").value;
+
+    //1. Effectuer une première vérification des données (NON SUFFISANTE)
+    console.log(pseudo);
+    console.log(email);
+    console.log(nom);
+    console.log(prenom);
+    console.log(adresse);
+    console.log(cp);
+    console.log(ville);
+
+    let request = getRequest();
+
+    request.open('POST', 'index.php?route=xhrinsertuser');
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.send("pseudo=" + pseudo + "&email=" + email + "&nom=" + nom + "&prenom=" + prenom + "&adresse=" + adresse + "&cp=" + cp + "&ville=" + ville);
+    // Sous la forme param=valeur&param2=valeur2...
+}
+);
+// ---------------------------------------------------------------------------
+var cpinput = document.getElementById("cp");
+cpinput.addEventListener("keyup", function (event) {
+    console.log(event.target.value);
+
+    if(event.target.value.length == 5) {
+        console.log("J'ai bien 5 caractères");
+
+        let cp = event.target.value;
+        let url = 'https://api.zippopotam.us/FR/' + cp;
+        let request = getRequest();
+        // 1.
+        request.open('GET', url);
+        // 2.
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        // 3.
+        request.send();
+
+        request.onreadystatechange = function (e) {
+            if(request.readyState == 4 && request.status == 200) {
+                //Dans ce cas on peut modifier notre select
+                let select = document.getElementById("ville");
+                let datas = JSON.parse(request.response);
+                console.log(datas);
+
+                let html = "";
+                for(let place of datas.places) {
+                    html += "<option value='" + place["place name"] + "'>" + place["place name"] + "</option>";
+                }
+                console.log(html);
+
+                select.innerHTML = html;
+            }
+        }
+        
+    }
+});
+// -------------------------------------------------------------------------
 // function changeContent(url, param, id_elem) {
     
     var elem = document.getElementById("modContent");
